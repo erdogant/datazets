@@ -1,0 +1,2 @@
+include datazets/data/*.zip
+include datazets/data/*.txt
