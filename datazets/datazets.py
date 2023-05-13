@@ -1,3 +1,4 @@
+"""Datazets is a python package to import well known example data sets."""
 # --------------------------------------------------
 # Name        : datazets.py
 # Author      : E.Taskesen
@@ -10,13 +11,13 @@ import os
 import pandas as pd
 import numpy as np
 import requests
-from urllib.parse import urlparse
+# from urllib.parse import urlparse
 import logging
 import zipfile
 import fnmatch
 
 logger = logging.getLogger('')
-for handler in logger.handlers[:]:  # get rid of existing old handlers
+for handler in logger.handlers[:]:
     logger.removeHandler(handler)
 console = logging.StreamHandler()
 formatter = logging.Formatter('[datazets] >%(levelname)s> %(message)s')
@@ -25,7 +26,7 @@ logger.addHandler(console)
 logger = logging.getLogger(__name__)
 
 
-# %% Import example dataset from github.
+# %% Import example dataset.
 def get(data=None, url=None, sep=',', verbose='info', **args):
     """Import example dataset from github source.
 
@@ -57,7 +58,6 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
             * 'faces'
             * 'mnist'
             * 'scenes'
-            * 'digits'
         Text data sets:
             * 'retail'
         Time series:
@@ -65,6 +65,9 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
             * 'meta'
     url : str
         url link to to dataset.
+    n : int
+        Number of samples to generate in case of 'random_discrete'.
+        Number of classes in case of 'mnist'
 	verbose : int, (default: 20)
         * [0, 60, None, 'silent', 'off', 'no']: No message.
         * [10, 'debug']: Messages from debug level and higher.
@@ -82,7 +85,6 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
     >>> # Import directly from url
     >>> url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
     >>> df = import_example(url=url)
-    >>>
 
     References
     ----------
@@ -104,11 +106,11 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
 
     # Import dataset
     if datatype=='image':
-        df = get_images(file_data, url)
+        df = _import_image_data(file_data, url)
     elif datatype=='synthetic':
         df = _generate_data(file_data, **args)
     else:
-        PATH_TO_DATA = get_data(file_data, url)
+        PATH_TO_DATA = import_url(file_data, url)
         df = pd.read_csv(PATH_TO_DATA, sep=sep)
 
     # Return
@@ -126,7 +128,7 @@ def _generate_data(file_data, **args):
 
 
 # %%
-def get_images(data, url=None, curpath=None):
+def _import_image_data(data, url=None, curpath=None, **args):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -153,11 +155,12 @@ def get_images(data, url=None, curpath=None):
         return X['data']
     elif data=='mnist.zip':
         from sklearn.datasets import load_digits
-        digits = load_digits(n_class=10)
+        n = args.get('n', None) if args.get('n', None) is not None else 10
+        digits = load_digits(n_class=n)
         return digits.data
 
     # Collect data
-    PATH_TO_DATA = get_data(data, url)
+    PATH_TO_DATA = import_url(data, url)
     # Unzip
     dirpath = unzip(PATH_TO_DATA)
     # Import local dataset
@@ -178,6 +181,8 @@ def _set_names_and_url(data, url):
             datatype='image'
         elif data=='random_discrete':
             datatype='synthetic'
+        else:
+            datatype='various'
 
         # Rename to correct filename
         if data=='flowers': data = 'flower_images'
@@ -188,7 +193,6 @@ def _set_names_and_url(data, url):
         if data=='ads': data, sep = 'ads_data', ','
         if data=='bitcoin': data, sep = 'BTCUSDT', ','
         if data=='meta': data, sep = 'facebook_stocks', ','
-        if data=='digits': sep = ','
         if data=='DS_salaries': sep = ','
         if data=='energy': data, sep = 'energy_source_target_value', ','
         if data=='breast_cancer': data = 'breast_cancer_dataset'
@@ -205,11 +209,6 @@ def _set_names_and_url(data, url):
 
     return file_data, url, datatype, sep
 
-
-# %% Extract basename from path
-def basename(label):
-    """Extract basename from path."""
-    return os.path.basename(label)
 
 # %% Recursively list files from directory
 def listdir(dirpath, ext=['png', 'tiff', 'jpg'], black_list=None):
@@ -366,6 +365,12 @@ def set_logger(verbose: [str, int] = 'info'):
     logger.setLevel(verbose)
 
 
+# %% Extract basename from path
+def basename(label):
+    """Extract basename from path."""
+    return os.path.basename(label)
+
+
 # %%
 def disable_tqdm():
     """Set the logger for verbosity messages."""
@@ -373,24 +378,35 @@ def disable_tqdm():
 
 
 # %%
-def get_data(file_data, url):
-    # Create directory
-    PATH_TO_DATA = _makedir(file_data, url)
-    # Check file exists.
-    if not os.path.isfile(PATH_TO_DATA):
-        logger.info('Downloading [%s] dataset from github source..' %(file_data))
-        _download_data(url, PATH_TO_DATA)
-    return PATH_TO_DATA
-
-
-def _makedir(file_data, url):
+def _makedir(filename, url):
     curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-    # file_data = os.path.basename(urlparse(url).path)
-    PATH_TO_DATA = os.path.join(curpath, file_data)
+    # filename = os.path.basename(urlparse(url).path)
+    PATH_TO_DATA = os.path.join(curpath, filename)
     if not os.path.isdir(curpath):
         os.makedirs(curpath, exist_ok=True)
     return PATH_TO_DATA
 
-def _download_data(url, PATH_TO_DATA):
-    wget.download(url, PATH_TO_DATA)
 
+def import_url(filename, url):
+    """Url import function.
+
+    Parameters
+    ----------
+    filename : string
+        filename.
+    url : string
+        string.
+
+    Returns
+    -------
+    PATH_TO_DATA : TYPE
+        string.
+
+    """
+    # Create directory
+    PATH_TO_DATA = _makedir(filename, url)
+    # Check file exists.
+    if not os.path.isfile(PATH_TO_DATA):
+        logger.info('Downloading [%s] dataset from github source..' %(filename))
+        wget.download(url, PATH_TO_DATA)
+    return PATH_TO_DATA

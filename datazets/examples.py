@@ -1,6 +1,6 @@
 # %%
 import datazets as ds
-df = ds.get(data='random_discrete')
+df = ds.get(data='mnist')
 
 # %% test
 datasets = ['census_income',
