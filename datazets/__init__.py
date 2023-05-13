@@ -12,13 +12,19 @@ datazets
 
 Description
 -----------
-datazets is for...
+Datazets is a python package to import well known example data sets.
 
 Example
 -------
->>> import datazets as datazets
->>> model = datazets.fit_transform(X)
->>> fig,ax = datazets.plot(model)
+>>> # Import library
+>>> import datazets as dz
+>>> #
+>>> # Import data set
+>>> df = dz.get('titanic')
+>>> #
+>>> # Import from url
+>>> url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+>>> df = dz.get(url=url, sep=',')
 
 References
 ----------

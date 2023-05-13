@@ -82,9 +82,15 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
 
     Examples
     --------
-    >>> # Import directly from url
+    >>> # Import library
+    >>> import datazets as dz
+    >>> #
+    >>> # Import data set
+    >>> df = dz.get('titanic')
+    >>> #
+    >>> # Import from url
     >>> url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
-    >>> df = import_example(url=url)
+    >>> df = dz.get(url=url, sep=',')
 
     References
     ----------

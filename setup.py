@@ -19,7 +19,7 @@ setuptools.setup(
      version=new_version,
      author="Erdogan Taskesen",
      author_email="erdogant@gmail.com",
-     description="Python package datazets",
+     description="Datazets is a python package to import well known example data sets.",
      long_description=long_description,
      long_description_content_type="text/markdown",
      url="https://github.com/erdogant/datazets",
