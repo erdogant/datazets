@@ -30,18 +30,6 @@
 **Star this repo if you like it! ⭐️**
 #
 
-
-## Blog/Documentation
-
-* [**datazets documentation pages (Sphinx)**](https://erdogant.github.io/datazets/)
-* [**Notebook with examples**](https://colab.research.google.com/github/erdogant/datazets/blob/master/notebooks/datazets.ipynb)
-* [**Read more details and usage about datazets in this blog!**](https://towardsdatascience.com/datazets)
-
-* <a href="https://erdogant.github.io/datazets/"> <img src="https://img.shields.io/badge/Sphinx-Docs-Green" alt="Open documentation pages"/> </a> datazets documentation pages 
-* <a href="https://colab.research.google.com/github/erdogant/datazets/blob/master/notebooks/datazets.ipynb"> <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open example In Colab"/> </a> Notebook example 
-* <a href="https://towardsdatascience.com/a-step-by-step-guide-for-clustering-images-4b45f9906128"> <img src="https://img.shields.io/badge/Medium-Blog-blue" alt="Open Blog"/> </a> Blog: A step-by-step guide for clustering images 
-
-
 ### Contents
 - [Installation](#-installation)
 - [Contribute](#-contribute)
