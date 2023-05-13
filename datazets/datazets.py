@@ -103,7 +103,7 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
         return None
 
     # Get and Set data information
-    file_data, url, datatype, sep = _set_names_and_url(data, url)
+    file_data, url, datatype, sep = _set_names_and_url(data, url, sep)
     logger.info('Import dataset [%s]' %(file_data))
 
     if url is None:
@@ -176,12 +176,12 @@ def _import_image_data(data, url=None, curpath=None, **args):
 
 
 # %%
-def _set_names_and_url(data, url):
-    sep=';'
+def _set_names_and_url(data, url, sep):
     datatype=None
 
     # Set names
     if data is not None:
+        sep=';'
         # Set datatype for imges
         if data=='flowers' or data=='faces' or data=='mnist' or data=='scenes':
             datatype='image'

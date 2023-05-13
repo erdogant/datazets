@@ -1,6 +1,11 @@
 # %%
-import datazets as ds
-df = ds.get(data='mnist')
+import datazets as dz
+url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+df = dz.get(url=url, sep=',')
+
+# %%
+import datazets as dz
+df = dz.get(data='mnist')
 
 # %% test
 datasets = ['census_income',
@@ -21,13 +26,8 @@ datasets = ['census_income',
             'digits',
             'energy',
             'meta',
-            'flowers',
-            'faces',
-            'mnist',
-            'scenes',
-            'digits',
             ]
 
 for data in datasets:
-    df = ds.get(data=data)
-    # print(df.shape)
+    df = dz.get(data=data)
+    print(df.shape)
