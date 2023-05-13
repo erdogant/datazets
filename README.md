@@ -86,9 +86,6 @@ df = dz.get(url=url, sep=',')
 </p>
 
 
-#### References
-* https://github.com/erdogant/datazets
-
 #### Citation
 Please cite in your publications if this is useful for your research (see citation).
    
