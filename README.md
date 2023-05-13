@@ -71,6 +71,7 @@ import datazets as datazets
 
 #### Example:
 ```python
+
 df = pd.read_csv('https://github.com/erdogant/hnet/blob/master/datazets/data/example_data.csv')
 model = datazets.fit(df)
 G = datazets.plot(model)
