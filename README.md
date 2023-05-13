@@ -71,18 +71,14 @@ import datazets as dz
 # Import data set
 df = dz.get('titanic')
 
-# Import from url
-url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
-df = dz.get(url=url, sep=',')
-
 ```
 
 #### Example:
 ```python
 
-df = pd.read_csv('https://github.com/erdogant/hnet/blob/master/datazets/data/example_data.csv')
-model = datazets.fit(df)
-G = datazets.plot(model)
+# Import from url
+url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+df = dz.get(url=url, sep=',')
 ```
 <p align="center">
   <img src="https://github.com/erdogant/datazets/blob/master/docs/figs/fig1.png" width="600" />
