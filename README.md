@@ -10,7 +10,6 @@
 [![Forks](https://img.shields.io/github/forks/erdogant/datazets.svg)](https://github.com/erdogant/datazets/network)
 [![Issues](https://img.shields.io/github/issues/erdogant/datazets.svg)](https://github.com/erdogant/datazets/issues)
 [![Project Status](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-[![Colab](https://colab.research.google.com/assets/colab-badge.svg?logo=github%20sponsors)](https://erdogant.github.io/datazets/pages/html/Documentation.html#colab-notebook)
 ![GitHub Repo stars](https://img.shields.io/github/stars/erdogant/datazets)
 ![GitHub repo size](https://img.shields.io/github/repo-size/erdogant/datazets)
 [![Donate](https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors)](https://erdogant.github.io/datazets/pages/html/Documentation.html#)
