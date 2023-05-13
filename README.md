@@ -64,9 +64,17 @@ cd datazets
 pip install -U .
 ```  
 
-#### Import datazets package
+#### Import datazets
 ```python
-import datazets as datazets
+# Import library
+import datazets as dz
+# Import data set
+df = dz.get('titanic')
+
+# Import from url
+url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+df = dz.get(url=url, sep=',')
+
 ```
 
 #### Example:
