@@ -12,6 +12,8 @@ rm -rf datazets/utils/__pycache__
 rm -rf .pylint.d
 rm -rf datazets/data/*.zip
 rm -rf datazets/data/*.csv
+rm -rf datazets/data/*.png
+rm -rf datazets/data
 rm -rf *.js
 rm -rf *.html
 rm -rf *.css
