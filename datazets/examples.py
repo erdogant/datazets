@@ -1,11 +1,13 @@
 # %%
-import datazets as dz
-url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
-df = dz.get(url=url, sep=',')
+# import datazets as dz
+# url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+# df = dz.get(url=url, sep=',')
 
 # %%
 import datazets as dz
-df = dz.get(data='mnist')
+df = dz.get(data='USA_elections')
+df.shape
+# %% New
 
 # %% test
 datasets = ['census_income',
@@ -17,7 +19,7 @@ datasets = ['census_income',
             'cancer',
             'auto_mpg',
             'cancer',
-            'retail',
+            'marketing_retail',
             'auto_mpg',
             'random_discrete',
             'ads',
@@ -26,6 +28,13 @@ datasets = ['census_income',
             'digits',
             'energy',
             'meta',
+            'gas_prices',
+            'iris',
+            'malicious_urls',
+            'waterpump',
+            'USA_elections',
+            'tips',
+            'predictive_maintenance',
             ]
 
 for data in datasets:

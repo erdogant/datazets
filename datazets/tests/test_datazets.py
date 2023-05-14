@@ -1,22 +1,22 @@
 import unittest
-import datazets as ds
+import datazets as dz
 
 class Testdatazets(unittest.TestCase):
 
     def test_import_example(self):
-        df = ds.get(data='random_discrete', n=1000)
+        df = dz.get(data='random_discrete', n=1000)
         assert df.shape==(1000, 5)
-        df = ds.get(data='random_discrete', n=10)
+        df = dz.get(data='random_discrete', n=10)
         assert df.shape==(10, 5)
 
     def test_image_datasets(self):
-        img = ds.get(data='flowers', verbose=0)
+        img = dz.get(data='flowers', verbose=0)
         assert len(img)==214
-        img = ds.get(data='faces', verbose=0)
-        assert img.shape==(400, 4096)
-        img = ds.get(data='mnist', verbose=0)
-        assert img.shape==(1797, 64)
-        img = ds.get(data='scenes', verbose=0)
+        img = dz.get(data='faces', verbose=0)
+        assert img.shape==(400, 4097)
+        img = dz.get(data='mnist', verbose=0)
+        assert img.shape==(1797, 65)
+        img = dz.get(data='scenes', verbose=0)
         assert len(img)==238
 
     def test_image_various(self):
@@ -29,7 +29,7 @@ class Testdatazets(unittest.TestCase):
                     'cancer',
                     'auto_mpg',
                     'cancer',
-                    'retail',
+                    'marketing_retail',
                     'auto_mpg',
                     'random_discrete',
                     'ads',
@@ -37,10 +37,17 @@ class Testdatazets(unittest.TestCase):
                     'bitcoin',
                     'energy',
                     'meta',
+                    'gas_prices',
+                    'iris',
+                    'malicious_urls',
+                    'waterpump',
+                    'USA_elections',
+                    'tips',
+                    'predictive_maintenance',
                     ]
         shapes = [(32561, 15),
          (352, 3),
-         (1000, 1),
+         (1000, 4),
          (891, 12),
          (649, 33),
          (128, 27),
@@ -54,8 +61,16 @@ class Testdatazets(unittest.TestCase):
          (569, 30),
          (2522, 2),
          (68, 3),
-         (1472, 20)]
+         (1472, 20),
+         (6556, 2),
+         (150, 3),
+         (387588, 2),
+         (59400, 41),
+         (24611, 8),
+         (244, 7),
+         (10000, 14),
+         ]
 
         for i, data in enumerate(datasets):
-            df = ds.get(data=data)
+            df = dz.get(data=data)
             assert df.shape==shapes[i]
