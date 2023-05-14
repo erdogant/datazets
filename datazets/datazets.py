@@ -41,7 +41,7 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
             * 'fifa'
             * 'DS_salaries'
             * 'waterpump'
-            * 'USA_elections'
+            * 'elections'
             * 'tips'
             * 'predictive_maintenance'
         source-target
@@ -120,7 +120,7 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
         return None
 
     # Get and Set data information
-    dataproperties = adjust_to_urlname(data, sep, url)
+    dataproperties = get_dataproperties(data, sep, url)
     logger.info('Import dataset [%s]' %(dataproperties['input']))
 
     if dataproperties['url'] is None:
@@ -129,16 +129,33 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
 
     # Import dataset
     if dataproperties['type']=='files':
-        df = _import_image_data(dataproperties)
+        df = _extract_files(dataproperties)
     elif dataproperties['type']=='synthetic':
         df = _generate_data(dataproperties['filename'], **args)
+    elif dataproperties['type']=='DAG':
+        df = _extract_files(dataproperties, targetdir=os.path.join(dataproperties['curpath'], dataproperties['input']), ext='*')
+        # PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'], dataproperties=dataproperties)
     else:
         PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'])
         df = pd.read_csv(PATH_TO_DATA, sep=dataproperties['sep'])
-
+    
+    df = _set_dtypes(df, dataproperties)
     # Return
     return df
 
+
+# %%
+def _set_dtypes(df, dataproperties):
+    if dataproperties['input']=='auto_mpg':
+        df['mpg'] = df['mpg'].astype('float64')
+        df['cylinders'] = df['cylinders'].astype('int64')
+        df['displacement'] = df['displacement'].astype('float64')
+        df['horsepower'] = df['horsepower'].astype('float64')
+        df['weight'] = df['weight'].astype('float64')
+        df['acceleration'] = df['acceleration'].astype('float64')
+        df['model_year'] = df['model_year'].astype('int64')
+        df['origin'] = df['origin'].astype('int64')
+    return df
 
 # %%
 def _generate_data(urlname, **args):
@@ -151,7 +168,7 @@ def _generate_data(urlname, **args):
 
 
 # %%
-def _import_image_data(dataproperties, **args):
+def _extract_files(dataproperties, **args):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -172,32 +189,24 @@ def _import_image_data(dataproperties, **args):
         Dataset containing mixed features.
 
     """
-    # if dataproperties['filename']=='faces':
-    #     from sklearn.datasets import fetch_olivetti_faces
-    #     X = fetch_olivetti_faces()
-    #     return X['data']
-    #     df = pd.DataFrame(data=X['data'], index=X['target'])
-    # if dataproperties['filename']=='mnist':
-        # from sklearn.datasets import load_digits
-        # n = args.get('n', None) if args.get('n', None) is not None else 10
-        # X = load_digits(n_class=n)
-        # df = pd.DataFrame(data=X['data'], index=X['target'])
-        # return X.data
+    targetdir = args.get('targetdir', None) if args.get('targetdir', None) is not None else None
+    ext = args.get('ext', None) if args.get('ext', None) is not None else ['png', 'tiff', 'jpg']
 
     # Collect data
     PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'])
     # Unzip
-    dirpath = unzip(PATH_TO_DATA)
+    dirpath = unzip(PATH_TO_DATA, targetdir=targetdir)
     # Import local dataset
-    image_files = listdir(dirpath)
+    image_files = listdir(dirpath, ext=ext)
     # Return
     return image_files
 
 
 # %% Get the correct url name.
-def adjust_to_urlname(data, sep, url=None):
+def get_dataproperties(data, sep=None, url=None):
     inputname, datatype = data, None
     if data is not None:
+        data = data.lower()
         # Set datatype for imges
         if data=='flowers' or data=='scenes' or data=='southern_nebula':
             datatype='files'
@@ -205,10 +214,11 @@ def adjust_to_urlname(data, sep, url=None):
             if data=='scenes': data = 'scenes.zip'
             # if data=='cat_and_dog': data = 'cat_and_dog.zip'
             # if data=='southern_nebula': data = 'southern_nebula.zip'
-            
-
         elif data=='alarm' or data=='andes' or data=='asia' or data=='sachs' or data=='water':
             datatype='DAG'
+            if os.path.splitext(data)[1]=='':
+                sep=','
+                data = data + '.zip'
         elif data=='random_discrete':
             datatype='synthetic'
         else:
@@ -225,34 +235,23 @@ def adjust_to_urlname(data, sep, url=None):
             if data=='breast_cancer': data, sep = 'breast_cancer_dataset.zip', ';'
             if data=='marketing_retail': data, sep = 'marketing_data_online_retail_small.zip', ';'
             if data=='waterpump': data, sep = 'waterpump.zip', ';'
-            if data=='USA_elections': data, sep = 'USA_2016_elections.zip', ','
+            if data=='elections': data, sep = 'USA_2016_elections.zip', ','
             if data=='occupancy': data, sep = 'UCI_Occupancy_Detection.zip', ','
             if data=='predictive_maintenance': data, sep = 'predictive_maintenance_ai4i2020.zip', ','
             if data=='iris': data, sep = 'iris_dataset.zip', ';'
             if data=='gas_prices': data, sep = 'Henry_Hub_Natural_Gas_Spot_Price.zip', ','
             if data=='grocery_products': data, sep = 'grocery_products_purchase.zip', ','
-            # if data=='movingbubbles': data, sep = 'movingbubbles.zip', ','
-
             # images
             if data=='faces': data, sep = 'olivetti_faces.zip', ';'
             if data=='mnist': data, sep = 'mnist_images.zip', ';'
-            # if data=='tips': data, sep = 'tips.zip', ','
-            # if data=='sprinkler': data, sep ='sprinkler.zip', ','
-            # if data=='DS_salaries': data, sep = 'DS_salaries.zip', ','
-            # if data=='auto_mpg': data, sep = 'auto_mpg.zip', ','
-            # if data=='stormofswords': data, sep = 'stormofswords.zip', ','
-            # if data=='census_income': data, sep = 'census_income.zip', ','
-            # if data=='malicious_urls': data, sep = 'malicious_urls.zip', ','
-            # if data=='digits': data, sep = 'digits.zip', ','
 
             if os.path.splitext(data)[1]=='':
                 sep=','
                 data = data + '.zip'
 
-            # 
-
+    curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     # Set the url
-    dataproperties = {'input': inputname, 'filename': data, 'sep': sep, 'type': datatype, 'url': url}
+    dataproperties = {'input': inputname, 'filename': data, 'sep': sep, 'type': datatype, 'url': url, 'curpath': curpath}
     # Get filename from url
     if url is not None:
         dataproperties['filename'] = wget.filename_from_url(url, ext=False)
@@ -297,7 +296,7 @@ def listdir(dirpath, ext=['png', 'tiff', 'jpg'], black_list=None):
         bl_found = np.isin(os.path.split(root)[1], black_list)
         if (black_list is None) or (not bl_found):
             for iext in ext:
-                for filename in fnmatch.filter(filenames, '*.' +iext):
+                for filename in fnmatch.filter(filenames, '*.' + iext):
                     getfiles.append(os.path.join(root, filename))
         else:
             logger.info('Excluded: <%s>' %(root))
@@ -337,7 +336,7 @@ class wget:
 
 
 # %% unzip
-def unzip(path_to_zip, outputdir=None):
+def unzip(path_to_zip, targetdir=None):
     """Unzip files.
 
     Parameters
@@ -361,10 +360,10 @@ def unzip(path_to_zip, outputdir=None):
         if not os.path.isdir(path_to_zip):
 
             logger.info('Extracting files..')
-            if outputdir is None:
+            if targetdir is None:
                 pathname, _ = os.path.split(path_to_zip)
             else:
-                pathname = outputdir
+                pathname = targetdir
 
             # Unzip
             zip_ref = zipfile.ZipFile(path_to_zip, 'r')
@@ -437,23 +436,13 @@ def disable_tqdm():
     return (True if (logger.getEffectiveLevel()>=30) else False)
 
 
-# %%
-def _makedir(filename, url):
-    curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-    # filename = os.path.basename(urlparse(url).path)
-    PATH_TO_DATA = os.path.join(curpath, filename)
-    if not os.path.isdir(curpath):
-        os.makedirs(curpath, exist_ok=True)
-    return PATH_TO_DATA
-
-
-def download_from_url(filename, url):
+def download_from_url(filename, url, **args):
     """Url import function.
 
     Parameters
     ----------
     filename : string
-        filename.
+        filename to create directory.
     url : string
         string.
 
@@ -469,4 +458,14 @@ def download_from_url(filename, url):
     if not os.path.isfile(PATH_TO_DATA):
         logger.info('Downloading [%s] dataset from github source..' %(filename))
         wget.download(url, PATH_TO_DATA)
+    return PATH_TO_DATA
+
+
+# %%
+def _makedir(filename, url):
+    curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+    # filename = os.path.basename(urlparse(url).path)
+    PATH_TO_DATA = os.path.join(curpath, filename)
+    if not os.path.isdir(curpath):
+        os.makedirs(curpath, exist_ok=True)
     return PATH_TO_DATA

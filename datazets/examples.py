@@ -1,12 +1,14 @@
 # %%
-# import datazets as dz
-# url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
-# df = dz.get(url=url, sep=',')
+import datazets as dz
+url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
+df = dz.get(url=url, sep=',')
+df.shape
 
 # %%
 import datazets as dz
-df = dz.get(data='USA_elections')
-df.shape
+df = dz.get(data='auto_mpg')
+# df.shape
+
 # %% New
 
 # %% test
@@ -32,7 +34,7 @@ datasets = ['census_income',
             'iris',
             'malicious_urls',
             'waterpump',
-            'USA_elections',
+            'elections',
             'tips',
             'predictive_maintenance',
             ]
