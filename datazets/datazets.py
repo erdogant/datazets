@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 # %% Import example dataset.
-def get(data=None, url=None, sep=',', verbose='info', **args):
+def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -40,7 +40,7 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
             * 'titanic'
             * 'student'
             * 'fifa'
-            * 'DS_salaries'
+            * 'ds_salaries'
             * 'waterpump'
             * 'elections'
             * 'tips'
@@ -119,7 +119,7 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
     if data is None and url is None:
         logger.error('Input parameter <data> or <url> should be used.')
         return None
-
+    
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
     logger.info('Import dataset [%s]' %(dataproperties['input']))
@@ -127,6 +127,10 @@ def get(data=None, url=None, sep=',', verbose='info', **args):
     if dataproperties['url'] is None:
         logger.info('Nothing to download.')
         return None
+
+    if overwrite and os.path.isfile(os.path.join(dataproperties['curpath'], dataproperties['filename'])):
+        logger.info('Removing [%s] from disk.' %(dataproperties['input']))
+        os.remove(os.path.join(dataproperties['curpath'], dataproperties['filename']))
 
     # Import dataset
     if dataproperties['type']=='files':
@@ -476,7 +480,9 @@ def _makedir(filename, url):
 def url2disk(urls, save_dir):
     """Write url locations to disk.
 
-    Import images from url locations and store to disk.
+    Images can also be imported from url locations.
+    Each image is first downloaded and stored on a (specified) temp directory.
+    In this example we will download 5 images from url locations. Note that url images and path locations can be combined.
 
     Parameters
     ----------

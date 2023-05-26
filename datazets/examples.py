@@ -1,5 +1,10 @@
 # %%
 import datazets as dz
+df = dz.get(data='ds_salaries', overwrite=True)
+
+
+# %%
+import datazets as dz
 url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
 df = dz.get(url=url, sep=',')
 df.shape
