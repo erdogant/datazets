@@ -11,10 +11,11 @@ import os
 import pandas as pd
 import numpy as np
 import requests
-# from urllib.parse import urlparse
 import logging
 import zipfile
 import fnmatch
+from io import BytesIO
+from urllib.parse import urlparse
 
 logger = logging.getLogger('')
 for handler in logger.handlers[:]:
@@ -469,3 +470,84 @@ def _makedir(filename, url):
     if not os.path.isdir(curpath):
         os.makedirs(curpath, exist_ok=True)
     return PATH_TO_DATA
+
+
+# %% URL to disk
+def url2disk(urls, save_dir):
+    """Write url locations to disk.
+
+    Import images from url locations and store to disk.
+
+    Parameters
+    ----------
+    urls : list
+        list of url locations with image path.
+    save_dir : str
+        location to disk.
+
+    Returns
+    -------
+    urls : list of str.
+        list to url locations that are now stored on disk.
+
+    Examples
+    --------
+    >>> # Init with default settings
+    >>> import clustimage as cl
+    >>>
+    >>> # Importing the files files from disk, cleaning and pre-processing
+    >>> url_to_images = ['https://erdogant.github.io/datasets/images/flower_images/flower_orange.png',
+    >>>                  'https://erdogant.github.io/datasets/images/flower_images/flower_white_1.png',
+    >>>                  'https://erdogant.github.io/datasets/images/flower_images/flower_white_2.png',
+    >>>                  'https://erdogant.github.io/datasets/images/flower_images/flower_yellow_1.png',
+    >>>                  'https://erdogant.github.io/datasets/images/flower_images/flower_yellow_2.png']
+    >>>
+    >>> # Import into model
+    >>> results = cl.url2disk(url_to_images, r'c:/temp/out/')
+    >>>
+
+    """
+    try:
+        from PIL import Image
+    except:
+        logger.error('Could not import <pillow> library. Try to pip install first <pip install pillow>')
+
+    if not isinstance(urls, list): urls = [urls]
+    # Set filepath to the output of urls in case no url are used. Then the normal filepath is returned.
+    filepath = urls.copy()
+    idx_url = np.where(list(map(lambda x: x[0:4]=='http', filepath)))[0]
+    if len(idx_url)>0:
+        logger.info('[%.0d] urls are detected and stored on disk: [%s]' %(len(idx_url), save_dir))
+    else:
+        urls = None
+
+    if not os.path.isdir(save_dir):
+        logger.info('Create dir: [%s]' %(save_dir))
+        os.mkdir(save_dir)
+
+    for idx in idx_url:
+        try:
+            # Make connection to file
+            response = requests.get(urls[idx])
+            img = Image.open(BytesIO(response.content))
+            # Get url
+            url = urlparse(urls[idx])
+            # Extract filename from url
+            url_filename = os.path.basename(url.path)
+            path_to_file = os.path.join(save_dir, url_filename)
+            if os.path.isfile(path_to_file):
+                logger.info('File already exists and is overwritten: [%s]' %(url.path))
+            else:
+                logger.info('Downloading [%s]' %(urls[idx]))
+            # save a image using extension
+            img.save(path_to_file)
+            # Store new location
+            filepath[idx] = path_to_file
+        except:
+            logger.warning('error downloading file from [%s]' %(urls[idx]))
+
+    # Make dictionary output
+    out = {'url': urls, 'pathnames': filepath}
+
+    # Return
+    return out
