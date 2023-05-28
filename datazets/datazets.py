@@ -230,6 +230,7 @@ def get_dataproperties(data, sep=None, url=None):
             datatype='various'
             # Rename to correct filename
             if data=='titanic': data, sep ='titanic_train.zip', ','
+            if data=='ds_salaries': data, sep ='ds_salaries.zip', ','
             if data=='student': data, sep ='student_train.zip', ','
             if data=='cancer': data, sep = 'cancer_dataset.zip', ','
             if data=='fifa': data, sep = 'FIFA_2018.zip', ','

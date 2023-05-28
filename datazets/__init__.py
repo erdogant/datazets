@@ -10,8 +10,6 @@ __doc__ = """
 datazets
 =====================================================================
 
-Description
------------
 Datazets is a python package to import well known example data sets.
 
 Example
