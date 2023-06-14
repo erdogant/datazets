@@ -143,7 +143,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     else:
         PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'])
         df = pd.read_csv(PATH_TO_DATA, sep=dataproperties['sep'])
-    
+
     df = _set_dtypes(df, dataproperties)
     # Return
     return df
