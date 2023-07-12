@@ -18,8 +18,7 @@ from io import BytesIO
 from urllib.parse import urlparse
 
 logger = logging.getLogger('')
-for handler in logger.handlers[:]:
-    logger.removeHandler(handler)
+[logger.removeHandler(handler) for handler in logger.handlers[:]]
 console = logging.StreamHandler()
 formatter = logging.Formatter('[datazets] >%(levelname)s> %(message)s')
 console.setFormatter(formatter)
@@ -63,14 +62,14 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
             * 'cancer'
             * 'auto_mpg'
             * 'iris'
-        Images
+        Images:
             * 'faces'
             * 'mnist'
-        files:
-            * 'southern_nebula' (images)
-            * 'flowers' (images)
-            * 'scenes' (images)
-            * 'cat_and_dog' (images)
+        Images (files):
+            * 'southern_nebula'
+            * 'flowers'
+            * 'scenes'
+            * 'cat_and_dog'
         Text data sets:
             * 'marketing_retail'
             * 'malicious_urls'
@@ -213,12 +212,12 @@ def get_dataproperties(data, sep=None, url=None):
     if data is not None:
         data = data.lower()
         # Set datatype for imges
-        if data=='flowers' or data=='scenes' or data=='southern_nebula':
+        if data=='flowers' or data=='scenes' or data=='southern_nebula' or data=='cat_and_dog':
             datatype='files'
             if data=='flowers': data = 'flower_images.zip'
             if data=='scenes': data = 'scenes.zip'
-            # if data=='cat_and_dog': data = 'cat_and_dog.zip'
-            # if data=='southern_nebula': data = 'southern_nebula.zip'
+            if data=='cat_and_dog': data = 'cat_and_dog.zip'
+            if data=='southern_nebula': data = 'southern_nebula.zip'
         elif data=='alarm' or data=='andes' or data=='asia' or data=='sachs' or data=='water':
             datatype='DAG'
             if os.path.splitext(data)[1]=='':
@@ -379,6 +378,7 @@ def unzip(path_to_zip, targetdir=None):
             if not os.path.isdir(getpath):
                 logger.error('Extraction failed.')
                 getpath = None
+                raise Exception('Extraction failed')
     else:
         logger.warning('Input is not a zip file: [%s]', path_to_zip)
     # Return

@@ -1,6 +1,6 @@
 # %%
 import datazets as dz
-df = dz.get(data='ds_salaries', overwrite=True)
+IMG = dz.get(data='faces', overwrite=True)
 
 
 # %%
@@ -15,6 +15,8 @@ df = dz.get(data='auto_mpg')
 # df.shape
 
 # %% New
+import datazets as dz
+IMAGES = ['faces', 'mnist', 'southern_nebula', 'flowers', 'scenes', 'cat_and_dog']
 
 # %% test
 datasets = ['census_income',
@@ -44,6 +46,11 @@ datasets = ['census_income',
             'predictive_maintenance',
             ]
 
+datasets = datasets + IMAGES
+
+# %%
 for data in datasets:
     df = dz.get(data=data)
-    print(df.shape)
+    print(len(df))
+
+# %%
