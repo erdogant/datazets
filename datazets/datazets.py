@@ -47,6 +47,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
         source-target
             * 'energy'
             * 'stormofswords'
+            * 'gameofthrones'
+            * 'bigbang'
         time-series
             * 'occupancy'
             * 'ps_data'
@@ -82,7 +84,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     n : int
         Number of samples to generate in case of 'random_discrete'.
         Number of classes in case of 'mnist'
-	verbose : int, (default: 20)
+    verbose : int, (default: 20)
         * [0, 60, None, 'silent', 'off', 'no']: No message.
         * [10, 'debug']: Messages from debug level and higher.
         * [20, 'info']: Messages from info level and higher.
@@ -112,13 +114,16 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     References
     ----------
     * Census Income. (1996). UCI Machine Learning Repository. https://doi.org/10.24432/C5S595.
+    * stormofswords: https://github.com/melaniewalsh/sample-social-network-datasets/
+    * gameofthrones: https://github.com/mathbeveridge/gameofthrones (CC BY 4.0) license.
+    * energy: https://www.gov.uk/guidance/2050-pathways-analysis
 
     """
     set_logger(verbose=verbose)
     if data is None and url is None:
         logger.error('Input parameter <data> or <url> should be used.')
         return None
-    
+
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
     logger.info('Import dataset [%s]' %(dataproperties['input']))
@@ -160,6 +165,7 @@ def _set_dtypes(df, dataproperties):
         df['model_year'] = df['model_year'].astype('int64')
         df['origin'] = df['origin'].astype('int64')
     return df
+
 
 # %%
 def _generate_data(urlname, **args):
@@ -236,7 +242,7 @@ def get_dataproperties(data, sep=None, url=None):
             if data=='ads': data, sep = 'ads_data.zip', ','
             if data=='bitcoin': data, sep = 'BTCUSDT.zip', ','
             if data=='meta': data, sep = 'facebook_stocks.zip', ','
-            if data=='energy': data, sep = 'energy_source_target_value.zip', ','
+            if data=='energy': data, sep = 'energy.zip', ','
             if data=='breast_cancer': data, sep = 'breast_cancer_dataset.zip', ';'
             if data=='marketing_retail': data, sep = 'marketing_data_online_retail_small.zip', ';'
             if data=='waterpump': data, sep = 'waterpump.zip', ';'
@@ -246,6 +252,7 @@ def get_dataproperties(data, sep=None, url=None):
             if data=='iris': data, sep = 'iris_dataset.zip', ';'
             if data=='gas_prices': data, sep = 'Henry_Hub_Natural_Gas_Spot_Price.zip', ','
             if data=='grocery_products': data, sep = 'grocery_products_purchase.zip', ','
+            if data=='bigbang': data, sep = 'bigbang.zip', ','
             # images
             if data=='faces': data, sep = 'olivetti_faces.zip', ';'
             if data=='mnist': data, sep = 'mnist_images.zip', ';'

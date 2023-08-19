@@ -1,6 +1,6 @@
 # %%
 import datazets as dz
-IMG = dz.get(data='faces', overwrite=True)
+df = dz.get(data='bigbang', overwrite=True)
 
 
 # %%
@@ -44,6 +44,7 @@ datasets = ['census_income',
             'elections',
             'tips',
             'predictive_maintenance',
+            'bigbang',
             ]
 
 datasets = datasets + IMAGES
