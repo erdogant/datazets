@@ -1,6 +1,6 @@
 # %%
 import datazets as dz
-df = dz.get(data='bigbang', overwrite=True)
+df = dz.get(data='surfspots', overwrite=True)
 
 
 # %%
@@ -45,6 +45,7 @@ datasets = ['census_income',
             'tips',
             'predictive_maintenance',
             'bigbang',
+            'surfspots',
             ]
 
 datasets = datasets + IMAGES

@@ -79,6 +79,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
         Time series:
             * 'bitcoin'
             * 'meta'
+        Locations:
+            * 'surfspots'
     url : str
         url link to to dataset.
     n : int
