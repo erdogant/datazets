@@ -67,8 +67,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
         Images:
             * 'faces'
             * 'mnist'
-            * 'peaks1'
-            * 'peaks2'
+            * 'img_peaks1'
+            * 'img_peaks2'
         Images (files):
             * 'southern_nebula'
             * 'flowers'
@@ -240,10 +240,10 @@ def get_dataproperties(data, sep=None, url=None):
                 data = data + '.zip'
         elif data=='random_discrete':
             datatype='synthetic'
-        elif data=='peaks1' or data=='peaks2':
+        elif data=='img_peaks1' or data=='img_peaks2':
             datatype='image'
-            if data=='peaks1': data = '2dpeaks_image.png'
-            if data=='peaks2': data = '2dpeaks_image_2.png'
+            if data=='img_peaks1': data = '2dpeaks_image.png'
+            if data=='img_peaks2': data = '2dpeaks_image_2.png'
         else:
             datatype='various'
             # Rename to correct filename

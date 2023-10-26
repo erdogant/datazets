@@ -1,6 +1,6 @@
 # %%
 import datazets as dz
-X = dz.get(data='peaks2', overwrite=True)
+X = dz.get(data='img_peaks1', overwrite=True)
 
 # %%
 import datazets as dz
@@ -19,7 +19,7 @@ df = dz.get(data='auto_mpg')
 
 # %% New
 import datazets as dz
-IMAGES = ['faces', 'mnist', 'southern_nebula', 'flowers', 'scenes', 'cat_and_dog', 'peaks1', 'peaks2']
+IMAGES = ['faces', 'mnist', 'southern_nebula', 'flowers', 'scenes', 'cat_and_dog', 'img_peaks1', 'img_peaks2']
 
 # %% test
 datasets = ['census_income',
