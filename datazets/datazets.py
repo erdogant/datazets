@@ -67,6 +67,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
         Images:
             * 'faces'
             * 'mnist'
+            * 'peaks1'
+            * 'peaks2'
         Images (files):
             * 'southern_nebula'
             * 'flowers'
@@ -146,6 +148,11 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     elif dataproperties['type']=='DAG':
         df = _extract_files(dataproperties, targetdir=os.path.join(dataproperties['curpath'], dataproperties['input']), ext='*')
         # PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'], dataproperties=dataproperties)
+    elif dataproperties['type']=='image':
+        PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'])
+        cv2 = _import_cv2()
+        X = cv2.imread(PATH_TO_DATA)
+        return X
     else:
         PATH_TO_DATA = download_from_url(dataproperties['filename'], url=dataproperties['url'])
         df = pd.read_csv(PATH_TO_DATA, sep=dataproperties['sep'])
@@ -233,6 +240,10 @@ def get_dataproperties(data, sep=None, url=None):
                 data = data + '.zip'
         elif data=='random_discrete':
             datatype='synthetic'
+        elif data=='peaks1' or data=='peaks2':
+            datatype='image'
+            if data=='peaks1': data = '2dpeaks_image.png'
+            if data=='peaks2': data = '2dpeaks_image_2.png'
         else:
             datatype='various'
             # Rename to correct filename
@@ -567,3 +578,12 @@ def url2disk(urls, save_dir):
 
     # Return
     return out
+
+# %% Import cv2
+def _import_cv2():
+    # Only for 2D images required
+    try:
+        import cv2
+        return cv2
+    except:
+        raise ImportError('cv2 must be installed manually. Try to: <pip install opencv-python>')
