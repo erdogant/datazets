@@ -41,7 +41,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
             * 'fifa'
             * 'ds_salaries'
             * 'waterpump'
-            * 'elections'
+            * 'elections_usa'
+            * 'elections_rus'
             * 'tips'
             * 'predictive_maintenance'
         source-target
@@ -260,6 +261,8 @@ def get_dataproperties(data, sep=None, url=None):
             if data=='marketing_retail': data, sep = 'marketing_data_online_retail_small.zip', ';'
             if data=='waterpump': data, sep = 'waterpump.zip', ';'
             if data=='elections': data, sep = 'USA_2016_elections.zip', ','
+            if data=='elections_usa': data, sep = 'USA_2016_elections.zip', ','
+            if data=='elections_rus': data, sep = 'RUS_2018_elections.zip', ','
             if data=='occupancy': data, sep = 'UCI_Occupancy_Detection.zip', ','
             if data=='predictive_maintenance': data, sep = 'predictive_maintenance_ai4i2020.zip', ','
             if data=='iris': data, sep = 'iris_dataset.zip', ';'
