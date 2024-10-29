@@ -9,6 +9,7 @@ __pycache__/
 # ignore dirs
 libraries/
 /datazets/data/*
+/data/*
 
 # Distribution / packaging
 .pylint.*
