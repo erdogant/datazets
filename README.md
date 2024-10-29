@@ -13,15 +13,6 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/erdogant/datazets)
 ![GitHub repo size](https://img.shields.io/github/repo-size/erdogant/datazets)
 [![Donate](https://img.shields.io/badge/Support%20this%20project-grey.svg?logo=github%20sponsors)](https://erdogant.github.io/datazets/pages/html/Documentation.html#)
-<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
-<!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
-
-
-
-
-
-<!---[![BuyMeCoffee](https://img.shields.io/badge/buymea-coffee-yellow.svg)](https://www.buymeacoffee.com/erdogant)-->
-<!---[![Coffee](https://img.shields.io/badge/coffee-black-grey.svg)](https://erdogant.github.io/donate/?currency=USD&amount=5)-->
 
 * ``datazets`` is Python package
 
@@ -29,39 +20,10 @@
 **Star this repo if you like it! ⭐️**
 #
 
-### Contents
-- [Installation](#-installation)
-- [Contribute](#-contribute)
-- [Citation](#-citation)
-- [Maintainers](#-maintainers)
-- [License](#-copyright)
-
-### Installation
-* Install datazets from PyPI (recommended). datazets is compatible with Python 3.6+ and runs on Linux, MacOS X and Windows. 
-* A new environment can be created as following:
 
 ```bash
-conda create -n env_datazets python=3.8
-conda activate env_datazets
+pip install datazets
 ```
-
-```bash
-pip install datazets            # normal install
-pip install --upgrade datazets # or update if needed
-```
-
-* Alternatively, you can install from the GitHub source:
-```bash
-# Directly install from github source
-pip install -e git://github.com/erdogant/datazets.git@0.1.0#egg=master
-pip install git+https://github.com/erdogant/datazets#egg=master
-pip install git+https://github.com/erdogant/datazets
-
-# By cloning
-git clone https://github.com/erdogant/datazets.git
-cd datazets
-pip install -U .
-```  
 
 #### Import datazets
 ```python
@@ -133,15 +95,8 @@ url='https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data'
 df = dz.get(url=url, sep=',')
 
 ```
-<p align="center">
-  <img src="https://github.com/erdogant/datazets/blob/master/docs/figs/fig1.png" width="600" />
-</p>
 
-
-#### Citation
-Please cite in your publications if this is useful for your research (see citation).
-   
-### Maintainers
+### Maintainer
 * Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
 
 ### Contribute
