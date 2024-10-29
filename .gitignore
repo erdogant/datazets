@@ -10,6 +10,7 @@ __pycache__/
 libraries/
 /datazets/data/*
 /data/*
+/data1/*
 
 # Distribution / packaging
 .pylint.*
