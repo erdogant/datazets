@@ -2,7 +2,7 @@ from datazets.datazets import get, get_dataproperties, download_from_url, unzip,
 
 __author__ = 'Erdogan Tasksen'
 __email__ = 'erdogant@gmail.com'
-__version__ = '0.2.0'
+__version__ = '1.0.0'
 
 # module level doc-string
 __doc__ = """

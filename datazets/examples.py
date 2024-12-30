@@ -23,7 +23,6 @@ df = dz.get(data='elections_rus')
 import datazets as dz
 IMAGES = ['faces', 'mnist', 'southern_nebula', 'flowers', 'scenes', 'cat_and_dog', 'img_peaks1', 'img_peaks2']
 
-# %% test
 datasets = ['census_income',
             'stormofswords',
             'sprinkler',
