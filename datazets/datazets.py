@@ -542,7 +542,7 @@ def url2disk(urls, save_dir):
     except:
         logger.error('Could not import <pillow> library. Try to pip install first <pip install pillow>')
 
-    if not isinstance(urls, list): urls = [urls]
+    if not isinstance(urls, (list, np.ndarray)): urls = [urls]
     # Set filepath to the output of urls in case no url are used. Then the normal filepath is returned.
     filepath = urls.copy()
     idx_url = np.where(list(map(lambda x: x[0:4]=='http', filepath)))[0]
