@@ -77,6 +77,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
         Text data sets:
             * 'marketing_retail'
             * 'malicious_urls'
+            * 'malicious_phish'
             * 'grocery_products'
         Time series:
             * 'bitcoin'

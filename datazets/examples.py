@@ -43,6 +43,7 @@ datasets = ['census_income',
             'gas_prices',
             'iris',
             'malicious_urls',
+            'malicious_phish',
             'waterpump',
             'elections_usa',
             'elections_rus',
@@ -61,8 +62,8 @@ for data in datasets:
         print(f'{data} | None | Image')
     else:
         print(f'{data} | {df.shape} | ')
-    print(df)
-    input('prss enter')
+    # print(df)
+    # input('prss enter')
 
 # %%
 
@@ -75,7 +76,8 @@ for data in datasets:
 # | iris                   | (150, 3)             | Continuous          | Classic flower classification dataset with iris species measurements with coordinates         |
 # | ads                    | (10000, 10)          | Discrete            | Data on online ads, covering click-through rates and targeting information                    |
 # | bigbang                | (9, 3)               | Network             | Data on *The Big Bang Theory* episodes and characters                                         |
-# | malicious_urls         | (387588, 2)          | Text                | URLs classified as malicious or benign, useful in cybersecurity                               |
+# | malicious_urls         | (387588, 2)          | Text                | URLs labeled as malicious or benign, useful in cybersecurity                                  |
+# | malicious_phish        | (651191, 4)          | Text                | URLs labeled as malicious or benign, defacement, phishing, malware (cybersecurity)            |
 # | random_discrete        | (1000, 5)            | Discrete            | Synthetic dataset with random discrete variables, useful for probability modeling             |
 # | stormofswords          | (352, 3)             | Network             | Character data from *A Storm of Swords*, with relationships, traits, and alliance info        |
 # | sprinkler              | (1000, 4)            | Discrete            | Synthetic dataset with binary variables for rain and sprinkler probability illustration       |
