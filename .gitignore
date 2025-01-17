@@ -10,7 +10,7 @@ __pycache__/
 libraries/
 /datazets/data/*.png
 /datazets/data/*.zip
-/datazets/data/
+/datazets/data/*
 /data/*
 .pypirc
 

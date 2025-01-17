@@ -26,7 +26,7 @@ logger.addHandler(console)
 
 
 # %% Import example dataset.
-def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
+def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}, **args):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -55,6 +55,13 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
             * 'gas_prices'
         synthetic discrete
             * 'random_discrete'
+            * 'blobs'
+            * 'moons'
+            * 'circles'
+            * 'anisotropic'
+            * 'globular'
+            * 'uniform'
+            * 'densities'
         Discrete data sets:
             * 'sprinkler'
             * 'census_income'
@@ -89,6 +96,8 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     n : int
         Number of samples to generate in case of 'random_discrete'.
         Number of classes in case of 'mnist'
+    params : Parameters to generate data with specific properties.
+        {'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}
     verbose : int, (default: 20)
         * [0, 60, None, 'silent', 'off', 'no']: No message.
         * [10, 'debug']: Messages from debug level and higher.
@@ -128,6 +137,10 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, **args):
     if data is None and url is None:
         logger.error('Input parameter <data> or <url> should be used.')
         return None
+
+    if np.any(np.isin(data, ['blobs', 'moons', 'circles', 'anisotropic', 'globular', 'uniform', 'densities'])):
+        # Generate datapoints
+        return generate_datapoints(data, params)
 
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
@@ -185,6 +198,65 @@ def _generate_data(urlname, **args):
         n = args.get('n', None) if args.get('n', None) is not None else 1000
         df = pd.DataFrame(np.random.randint(low=0, high=2, size=(n, 5)), columns=['A', 'B', 'C', 'D', 'E'])
     return df
+
+
+# %%
+def generate_datapoints(data, params={'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}):
+    """Generate data.
+
+    Generate data
+
+    Parameters
+    ----------
+    data : str
+        Name of datasets: 'blobs', 'moons', 'circles', 'anisotropic', 'globular', 'densities', 'uniform'
+
+    Returns
+    -------
+    pd.DataFrame()
+        Dataset containing mixed features.
+
+    """
+    params = {**{'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}, **params}
+    from sklearn import datasets
+
+    if data=='blobs':
+        X, y = datasets.make_blobs(n_samples=params['n_samples'], centers=4, n_features=params['n_feat'], cluster_std=0.5, random_state=params['random_state'])
+        return pd.DataFrame(X, index=y)
+    elif data=='moons':
+        X, y = datasets.make_moons(n_samples=params['n_samples'], noise=params['noise'])
+        return pd.DataFrame(X, index=y)
+    elif data=='circles':
+        X, y = datasets.make_circles(n_samples=params['n_samples'], factor=0.5, noise=params['noise'])
+        return pd.DataFrame(X, index=y)
+    elif data=='anisotropic':
+        X, y = datasets.make_blobs(n_samples=params['n_samples'], random_state=params['random_state'])
+        transformation = [[0.6, -0.6], [-0.4, 0.8]]
+        X = np.dot(X, transformation)
+        return pd.DataFrame(X, index=y)
+    elif data=='globular':
+        n_samples = int(np.round(params['n_samples'] / 5))
+        C1 = [-5, -2] + 0.8 * np.random.randn(n_samples, 2)
+        C2 = [4, -1] + 0.1 * np.random.randn(n_samples, 2)
+        C3 = [1, -2] + 0.2 * np.random.randn(n_samples, 2)
+        C4 = [-2, 3] + 0.3 * np.random.randn(n_samples, 2)
+        C5 = [3, -2] + 1.6 * np.random.randn(n_samples, 2)
+        C6 = [5, 6] + 2 * np.random.randn(n_samples, 2)
+        X = np.vstack((C1, C2, C3, C4, C5, C6))
+        y = np.vstack(([1] * len(C1), [2] * len(C2), [3] * len(C3), [4] * len(C4), [5] * len(C5), [6] * len(C6))).ravel()
+        return pd.DataFrame(X, index=y)
+    elif data=='densities':
+        n_samples = int(np.round(params['n_samples'] / 5))
+        X, y = datasets.make_blobs(n_samples=n_samples, n_features=params['n_feat'], centers=2, random_state=params['random_state'])
+        c = np.random.multivariate_normal([40, 40], [[20, 1], [1, 30]], size=[200,])
+        d = np.random.multivariate_normal([80, 80], [[30, 1], [1, 30]], size=[200,])
+        e = np.random.multivariate_normal([0, 100], [[200, 1], [1, 100]], size=[200,])
+        X = np.concatenate((X, c, d, e),)
+        y = np.concatenate((y, len(c) * [2], len(c) * [3], len(c) * [4]),)
+        return pd.DataFrame(X, index=y)
+    elif data=='uniform':
+        X, y = np.random.rand(params['n_samples'], 2), None
+        return pd.DataFrame(X, index=y)
 
 
 # %%
@@ -589,4 +661,10 @@ def _import_cv2():
         import cv2
         return cv2
     except:
-        raise ImportError('cv2 must be installed manually. Try to: <pip install opencv-python>')
+        raise ImportError('cv2 must be installed manually. Try to: <pip install opencv-python> or <pip install opencv-python-headless>')
+
+
+# %%
+def get_logger():
+    """Return logger status."""
+    return logger.getEffectiveLevel()

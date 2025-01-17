@@ -50,7 +50,15 @@ datasets = ['census_income',
             'predictive_maintenance',
             'bigbang',
             'surfspots',
+            'blobs',
+            'moons',
+            'circles',
+            'anisotropic',
+            'globular',
+            'uniform',
+            'densities',
             ]
+
 
 datasets = datasets + IMAGES
 
