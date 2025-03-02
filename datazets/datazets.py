@@ -17,12 +17,13 @@ import fnmatch
 from io import BytesIO
 from urllib.parse import urlparse
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("")
 [logger.removeHandler(handler) for handler in logger.handlers[:]]
 console = logging.StreamHandler()
 formatter = logging.Formatter('[datazets] >%(levelname)s> %(message)s')
 console.setFormatter(formatter)
 logger.addHandler(console)
+# logger.propagate = False
 
 
 # %% Import example dataset.
