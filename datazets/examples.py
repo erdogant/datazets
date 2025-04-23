@@ -1,6 +1,14 @@
 # %%
 import datazets as dz
-X = dz.get(data='img_peaks1', overwrite=True)
+dz.check_logger(verbose='debug')
+dz.check_logger(verbose='info')
+dz.check_logger(verbose='warning')
+dz.check_logger(verbose='critical')
+dz.check_logger(verbose=0)
+
+# %%
+import datazets as dz
+X = dz.get(data='img_peaks1', overwrite=True, verbose='info')
 
 # %%
 import datazets as dz

@@ -663,3 +663,11 @@ def _import_cv2():
 def get_logger():
     """Return logger status."""
     return logger.getEffectiveLevel()
+
+def check_logger(verbose='info'):
+    """Check the verbosity."""
+    set_logger(verbose=verbose)
+    logger.debug('DEBUG')
+    logger.info('INFO')
+    logger.warning('WARNING')
+    logger.critical('CRITICAL')
