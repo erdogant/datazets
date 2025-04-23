@@ -41,7 +41,7 @@ class Testdatazets(unittest.TestCase):
                     'iris',
                     'malicious_urls',
                     'waterpump',
-                    'USA_elections',
+                    'elections_usa',
                     'tips',
                     'predictive_maintenance',
                     ]
