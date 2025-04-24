@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API References &mdash; datazets datazets documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=e0179649" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=0c600256"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Coding quality" href="Coding%20quality.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            datazets
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+    
+              <p class="caption" role="heading"><span class="caption-text">Background</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Abstract.html">Background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Abstract.html#schematic-overview">Schematic overview</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Installation.html#uninstalling">Uninstalling</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Methods</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Algorithm.html">Algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Cross%20validation%20and%20hyperparameter%20tuning.html">Cross validation and hyperparameter tuning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Performance.html#result">Result</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Save%20and%20Load.html">Save and Load</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#learn-new-model-with-gridsearch-and-train-test-set">Learn new model with gridsearch and train-test set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Examples.html#learn-new-model-on-the-entire-data-set">Learn new model on the entire data set</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html">Sponsor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#medium-blog">Medium Blog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#github">Github</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#colab-notebook">Colab Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Documentation.html#citing">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Coding%20quality.html">Coding quality</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API References</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.basename"><code class="docutils literal notranslate"><span class="pre">basename()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.check_logger"><code class="docutils literal notranslate"><span class="pre">check_logger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.disable_tqdm"><code class="docutils literal notranslate"><span class="pre">disable_tqdm()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.download_from_url"><code class="docutils literal notranslate"><span class="pre">download_from_url()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.generate_datapoints"><code class="docutils literal notranslate"><span class="pre">generate_datapoints()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.get_dataproperties"><code class="docutils literal notranslate"><span class="pre">get_dataproperties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.get_logger"><code class="docutils literal notranslate"><span class="pre">get_logger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.listdir"><code class="docutils literal notranslate"><span class="pre">listdir()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.set_logger"><code class="docutils literal notranslate"><span class="pre">set_logger()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.unzip"><code class="docutils literal notranslate"><span class="pre">unzip()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.url2disk"><code class="docutils literal notranslate"><span class="pre">url2disk()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#datazets.datazets.wget"><code class="docutils literal notranslate"><span class="pre">wget</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#datazets.datazets.wget.download"><code class="docutils literal notranslate"><span class="pre">wget.download()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datazets.datazets.wget.filename_from_url"><code class="docutils literal notranslate"><span class="pre">wget.filename_from_url()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    <a href= "genindex.html">Index</a>
+  
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">datazets</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">API References</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/datazets.datazets.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-datazets.datazets">
+<span id="api-references"></span><h1>API References<a class="headerlink" href="#module-datazets.datazets" title="Link to this heading"></a></h1>
+<p>Datazets is a python package to import well known example data sets.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.basename">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">basename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.basename" title="Link to this definition"></a></dt>
+<dd><p>Extract basename from path.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.check_logger">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">check_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.check_logger" title="Link to this definition"></a></dt>
+<dd><p>Check the verbosity.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.disable_tqdm">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">disable_tqdm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.disable_tqdm" title="Link to this definition"></a></dt>
+<dd><p>Set the logger for verbosity messages.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.download_from_url">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">download_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.download_from_url" title="Link to this definition"></a></dt>
+<dd><p>Url import function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – filename to create directory.</p></li>
+<li><p><strong>url</strong> (<em>string</em>) – string.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>PATH_TO_DATA</strong> – string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.generate_datapoints">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">generate_datapoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_feat':</span> <span class="pre">2,</span> <span class="pre">'n_samples':</span> <span class="pre">1000,</span> <span class="pre">'noise':</span> <span class="pre">0.05,</span> <span class="pre">'random_state':</span> <span class="pre">170}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.generate_datapoints" title="Link to this definition"></a></dt>
+<dd><p>Generate data.</p>
+<p>Generate data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>str</em>) – Name of datasets: ‘blobs’, ‘moons’, ‘circles’, ‘anisotropic’, ‘globular’, ‘densities’, ‘uniform’</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataset containing mixed features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.get">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'info'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'n_feat':</span> <span class="pre">2,</span> <span class="pre">'n_samples':</span> <span class="pre">1000,</span> <span class="pre">'noise':</span> <span class="pre">0.05,</span> <span class="pre">'random_state':</span> <span class="pre">170}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.get" title="Link to this definition"></a></dt>
+<dd><p>Import example dataset from github source.</p>
+<p>Import one of the few datasets from github source or specify your own download url link.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>str</em>) – <dl class="simple">
+<dt>Multicollinear data sets:</dt><dd><ul>
+<li><p>’titanic’</p></li>
+<li><p>’student’</p></li>
+<li><p>’fifa’</p></li>
+<li><p>’ds_salaries’</p></li>
+<li><p>’waterpump’</p></li>
+<li><p>’elections_usa’</p></li>
+<li><p>’elections_rus’</p></li>
+<li><p>’tips’</p></li>
+<li><p>’predictive_maintenance’</p></li>
+</ul>
+</dd>
+<dt>source-target</dt><dd><ul>
+<li><p>’energy’</p></li>
+<li><p>’stormofswords’</p></li>
+<li><p>’gameofthrones’</p></li>
+<li><p>’bigbang’</p></li>
+</ul>
+</dd>
+<dt>time-series</dt><dd><ul>
+<li><p>’occupancy’</p></li>
+<li><p>’ps_data’</p></li>
+<li><p>’gas_prices’</p></li>
+</ul>
+</dd>
+<dt>synthetic discrete</dt><dd><ul>
+<li><p>’random_discrete’</p></li>
+<li><p>’blobs’</p></li>
+<li><p>’moons’</p></li>
+<li><p>’circles’</p></li>
+<li><p>’anisotropic’</p></li>
+<li><p>’globular’</p></li>
+<li><p>’uniform’</p></li>
+<li><p>’densities’</p></li>
+</ul>
+</dd>
+<dt>Discrete data sets:</dt><dd><ul>
+<li><p>’sprinkler’</p></li>
+<li><p>’census_income’</p></li>
+<li><p>’ads’</p></li>
+</ul>
+</dd>
+<dt>Continous data sets:</dt><dd><ul>
+<li><p>’breast_cancer’</p></li>
+<li><p>’cancer’</p></li>
+<li><p>’auto_mpg’</p></li>
+<li><p>’iris’</p></li>
+</ul>
+</dd>
+<dt>Images:</dt><dd><ul>
+<li><p>’faces’</p></li>
+<li><p>’mnist’</p></li>
+<li><p>’img_peaks1’</p></li>
+<li><p>’img_peaks2’</p></li>
+</ul>
+</dd>
+<dt>Images (files):</dt><dd><ul>
+<li><p>’southern_nebula’</p></li>
+<li><p>’flowers’</p></li>
+<li><p>’scenes’</p></li>
+<li><p>’cat_and_dog’</p></li>
+</ul>
+</dd>
+<dt>Text data sets:</dt><dd><ul>
+<li><p>’marketing_retail’</p></li>
+<li><p>’malicious_urls’</p></li>
+<li><p>’malicious_phish’</p></li>
+<li><p>’grocery_products’</p></li>
+</ul>
+</dd>
+<dt>Time series:</dt><dd><ul>
+<li><p>’bitcoin’</p></li>
+<li><p>’meta’</p></li>
+</ul>
+</dd>
+<dt>Locations:</dt><dd><ul>
+<li><p>’surfspots’</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – url link to to dataset.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Number of samples to generate in case of ‘random_discrete’.
+Number of classes in case of ‘mnist’</p></li>
+<li><p><strong>params</strong> (<em>Parameters to generate data with specific properties.</em>) – {‘n_samples’: 1000, ‘n_feat’: 2, ‘noise’: 0.05, ‘random_state’: 170}</p></li>
+<li><p><strong>verbose</strong> (<em>int</em><em>, </em><em>(</em><em>default: 20</em><em>)</em>) – <ul>
+<li><p>[0, 60, None, ‘silent’, ‘off’, ‘no’]: No message.</p></li>
+<li><p>[10, ‘debug’]: Messages from debug level and higher.</p></li>
+<li><p>[20, ‘info’]: Messages from info level and higher.</p></li>
+<li><p>[30, ‘warning’]: Messages from warning level and higher.</p></li>
+<li><p>[50, ‘critical’]: Messages from critical level and higher.</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataset containing mixed features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame()</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import library</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">datazets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">dz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import data set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">dz</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;titanic&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import data set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">img</span> <span class="o">=</span> <span class="n">dz</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;faces&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import from url</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">dz</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Census Income. (1996). UCI Machine Learning Repository. <a class="reference external" href="https://doi.org/10.24432/C5S595">https://doi.org/10.24432/C5S595</a>.</p></li>
+<li><p>stormofswords: <a class="reference external" href="https://github.com/melaniewalsh/sample-social-network-datasets/">https://github.com/melaniewalsh/sample-social-network-datasets/</a></p></li>
+<li><p>gameofthrones: <a class="reference external" href="https://github.com/mathbeveridge/gameofthrones">https://github.com/mathbeveridge/gameofthrones</a> (CC BY 4.0) license.</p></li>
+<li><p>energy: <a class="reference external" href="https://www.gov.uk/guidance/2050-pathways-analysis">https://www.gov.uk/guidance/2050-pathways-analysis</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.get_dataproperties">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">get_dataproperties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sep</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.get_dataproperties" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.get_logger">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.get_logger" title="Link to this definition"></a></dt>
+<dd><p>Return logger status.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.listdir">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">listdir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dirpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['png',</span> <span class="pre">'tiff',</span> <span class="pre">'jpg']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">black_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.listdir" title="Link to this definition"></a></dt>
+<dd><p>Collect recursive images from path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dirpath</strong> (<em>str</em>) – Path to directory; “/tmp” or “c://temp/”</p></li>
+<li><p><strong>ext</strong> (<em>list</em><em>, </em><em>default:</em><em> [</em><em>'png'</em><em>,</em><em>'tiff'</em><em>,</em><em>'jpg'</em><em>]</em>) – extentions to collect form directories.</p></li>
+<li><p><strong>black_list</strong> (<em>list</em><em>, </em><em>(</em><em>default:</em><em> [</em><em>'undouble'</em><em>]</em><em>)</em>) – Exclude directory with all subdirectories from processing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>getfiles</strong> – Full pathnames to images.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of str.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">clustimage</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pathnames</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;c://temp//flower_images&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.set_logger">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose:</span> <span class="pre">[&lt;class</span> <span class="pre">'str'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">&lt;class</span> <span class="pre">'int'&gt;]</span> <span class="pre">=</span> <span class="pre">'info'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.set_logger" title="Link to this definition"></a></dt>
+<dd><p>Set the logger for verbosity messages.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>verbose</strong> (<em>[</em><em>str</em><em>, </em><em>int</em><em>]</em><em>, </em><em>default is 'info'</em><em> or </em><em>20</em>) – Set the verbose messages using string or integer values.
+* [0, 60, None, ‘silent’, ‘off’, ‘no’]: No message.
+* [10, ‘debug’]: Messages from debug level and higher.
+* [20, ‘info’]: Messages from info level and higher.
+* [30, ‘warning’]: Messages from warning level and higher.
+* [50, ‘critical’]: Messages from critical level and higher.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>None.</em></p></li>
+<li><p><em>&gt; # Set the logger to warning</em></p></li>
+<li><p><em>&gt; set_logger(verbose=’warning’)</em></p></li>
+<li><p><em>&gt; # Test with different messages</em></p></li>
+<li><p><em>&gt; logger.debug(“Hello debug”)</em></p></li>
+<li><p><em>&gt; logger.info(“Hello info”)</em></p></li>
+<li><p><em>&gt; logger.warning(“Hello warning”)</em></p></li>
+<li><p><em>&gt; logger.critical(“Hello critical”)</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.unzip">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">unzip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_zip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetdir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.unzip" title="Link to this definition"></a></dt>
+<dd><p>Unzip files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path_to_zip</strong> (<em>str</em>) – Path of the zip file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>getpath</strong> – Path containing the unzipped files.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">clustimage</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cl</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dirpath</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">unzip</span><span class="p">(</span><span class="s1">&#39;c://temp//flower_images.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="datazets.datazets.url2disk">
+<span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">url2disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">urls</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.url2disk" title="Link to this definition"></a></dt>
+<dd><p>Write url locations to disk.</p>
+<p>Images can also be imported from url locations.
+Each image is first downloaded and stored on a (specified) temp directory.
+In this example we will download 5 images from url locations. Note that url images and path locations can be combined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>urls</strong> (<em>list</em>) – list of url locations with image path.</p></li>
+<li><p><strong>save_dir</strong> (<em>str</em>) – location to disk.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>urls</strong> – list to url locations that are now stored on disk.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of str.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Init with default settings</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">clustimage</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cl</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Importing the files files from disk, cleaning and pre-processing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">url_to_images</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://erdogant.github.io/datasets/images/flower_images/flower_orange.png&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                 <span class="s1">&#39;https://erdogant.github.io/datasets/images/flower_images/flower_white_1.png&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                 <span class="s1">&#39;https://erdogant.github.io/datasets/images/flower_images/flower_white_2.png&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                 <span class="s1">&#39;https://erdogant.github.io/datasets/images/flower_images/flower_yellow_1.png&#39;</span><span class="p">,</span>
+<span class="gp">&gt;&gt;&gt; </span>                 <span class="s1">&#39;https://erdogant.github.io/datasets/images/flower_images/flower_yellow_2.png&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Import into model</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="n">url2disk</span><span class="p">(</span><span class="n">url_to_images</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;c:/temp/out/&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="datazets.datazets.wget">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">datazets.datazets.</span></span><span class="sig-name descname"><span class="pre">wget</span></span><a class="headerlink" href="#datazets.datazets.wget" title="Link to this definition"></a></dt>
+<dd><p>Retrieve file from url.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="datazets.datazets.wget.download">
+<span class="sig-name descname"><span class="pre">download</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">writepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.wget.download" title="Link to this definition"></a></dt>
+<dd><p>Download.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str.</em>) – Internet source.</p></li>
+<li><p><strong>writepath</strong> (<em>str.</em>) – Directory to write the file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="datazets.datazets.wget.filename_from_url">
+<span class="sig-name descname"><span class="pre">filename_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#datazets.datazets.wget.filename_from_url" title="Link to this definition"></a></dt>
+<dd><p>Return filename.</p>
+</dd></dl>
+
+</dd></dl>
+
+<hr>
+<center>
+        <script async src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script>
+        <!-- Show an image ad -->
+        <!-- <div data-ea-publisher="erdogantgithubio" data-ea-type="image"></div> -->
+        <div data-ea-publisher="erdogantgithubio" data-ea-type="image" data-ea-style="stickybox"></div>
+</center>
+<hr></section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Coding%20quality.html" class="btn btn-neutral float-left" title="Coding quality" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Erdogan Taskesen.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
