@@ -39,11 +39,11 @@ df = dz.get('titanic')
 
 | Dataset Name           | Shape Size           | Type                | Description                                                                                   |
 |------------------------|----------------------|---------------------|-----------------------------------------------------------------------------------------------|
-| meta                   | (1472, 20)           | Continuous | time   | Stock price of Meta                                                                           |
-| bitcoin                | (2522, 2)            | Continuous | time   | Bitcoin price history data for time series and price prediction                               |
+| meta                   | (1472, 20)           | Continuous, time   | Stock price of Meta                                                                           |
+| bitcoin                | (2522, 2)            | Continuous, time   | Bitcoin price history data for time series and price prediction                               |
 | iris                   | (150, 3)             | Continuous          | Classic flower classification dataset with iris species measurements with coordinates         |
 |                        |                      |                     |                                                                                               |
-| gas_prices             | (6556, 2)            | Mixed | time        | Historical gas prices by region for trend analysis                                            |
+| gas_prices             | (6556, 2)            | Mixed, time        | Historical gas prices by region for trend analysis                                            |
 | ads                    | (10000, 10)          | Discrete            | Data on online ads, covering click-through rates and targeting information                    |
 | sprinkler              | (1000, 4)            | Discrete            | Synthetic dataset with binary variables for rain and sprinkler probability illustration       |
 | random_discrete        | (1000, 5)            | Discrete            | Synthetic dataset with random discrete variables, useful for probability modeling             |
@@ -65,7 +65,7 @@ df = dz.get('titanic')
 | marketing_retail       | (999, 8)             | Mixed               | Retail customer data for behavior and segmentation analysis                                   |
 | predictive_maintenance | (10000, 14)          | Mixed               | Industrial equipment data for predictive maintenance                                          |
 | student                | (649, 33)            | Mixed               | Data on student performance with socio-demographic and academic factors                       |
-| surfspots              | (9413, 4)            | Mixed | latlon      | Information on global surf spots, with details on location and wave characteristics           |
+| surfspots              | (9413, 4)            | Mixed, latlon      | Information on global surf spots, with details on location and wave characteristics           |
 | tips                   | (244, 7)             | Mixed               | Restaurant tipping data with variables on meal size, day, and tip amount                      |
 | titanic                | (891, 12)            | Mixed               | Titanic passenger data with demographic, class, and survival information                      |
 | waterpump              | (59400, 41)          | Mixed               | Water pump data with features for predicting functionality and maintenance needs              |
