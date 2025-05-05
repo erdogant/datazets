@@ -441,7 +441,7 @@ def unzip(path_to_zip, targetdir=None, return_full_paths=False):
     targetdir : str
         Path of the target directory to extract the files.
     return_full_paths : bool (False: Default)
-        True: Return the full path of all files in the zip file
+        True: Return the paths of all files in the zip file
         False: Return only the directory where files are extracted
 
     Returns
@@ -475,7 +475,7 @@ def unzip(path_to_zip, targetdir=None, return_full_paths=False):
 
             # Return path
             subdirs = [os.path.normpath(p) for p in extracted_files if p.endswith('/')]
-            getpath = os.path.join(pathname, subdirs[0])
+            getpath = pathname if len(subdirs) == 0 else os.path.join(pathname, subdirs[0])
             full_paths = [os.path.join(pathname, name) for name in extracted_files]
 
             if not os.path.isdir(getpath):
