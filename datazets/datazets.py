@@ -431,13 +431,18 @@ class wget:
 
 
 # %% unzip
-def unzip(path_to_zip, targetdir=None):
+def unzip(path_to_zip, targetdir=None, return_full_paths=False):
     """Unzip files.
 
     Parameters
     ----------
     path_to_zip : str
         Path of the zip file.
+    targetdir : str
+        Path of the target directory to extract the files.
+    return_full_paths : bool (False: Default)
+        True: Return the full path of all files in the zip file
+        False: Return only the directory where files are extracted
 
     Returns
     -------
@@ -451,7 +456,7 @@ def unzip(path_to_zip, targetdir=None):
 
     """
     getpath = None
-    if path_to_zip[-4:]=='.zip':
+    if path_to_zip[-4:] == '.zip':
         if not os.path.isdir(path_to_zip):
 
             logger.info('Extracting files..')
@@ -462,17 +467,29 @@ def unzip(path_to_zip, targetdir=None):
 
             # Unzip
             zip_ref = zipfile.ZipFile(path_to_zip, 'r')
+            # List of files inside the zip
+            extracted_files = zip_ref.namelist()
+            # Extract to disk
             zip_ref.extractall(pathname)
             zip_ref.close()
-            getpath = path_to_zip.replace('.zip', '')
+
+            # Return path
+            subdirs = [os.path.normpath(p) for p in extracted_files if p.endswith('/')]
+            getpath = os.path.join(pathname, subdirs[0])
+            full_paths = [os.path.join(pathname, name) for name in extracted_files]
+
             if not os.path.isdir(getpath):
-                logger.error('Extraction failed.')
+                logger.error('Extraction failed. Directory does not exists.')
                 getpath = None
                 raise Exception('Extraction failed')
     else:
         logger.warning('Input is not a zip file: [%s]', path_to_zip)
+
     # Return
-    return getpath
+    if return_full_paths:
+        return full_paths
+    else:
+        return getpath
 
 
 # %%
