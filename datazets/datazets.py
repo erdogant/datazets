@@ -475,8 +475,12 @@ def unzip(path_to_zip, targetdir=None, return_full_paths=False):
 
             # Return path
             subdirs = [os.path.normpath(p) for p in extracted_files if p.endswith('/')]
-            getpath = pathname if len(subdirs) == 0 else os.path.join(pathname, subdirs[0])
+            root_dirs = list(set(os.path.normpath(p).split(os.sep)[0] for p in subdirs))
+            getpath = pathname if len(root_dirs) == 0 else os.path.join(pathname, root_dirs[0])
             full_paths = [os.path.join(pathname, name) for name in extracted_files]
+
+            if len(root_dirs) > 1:
+                logger.warning('Multiple subdirectories are detected in the zip file. The returned path is the root directory.')
 
             if not os.path.isdir(getpath):
                 logger.error('Extraction failed. Directory does not exists.')
