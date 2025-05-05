@@ -8,6 +8,7 @@ __pycache__/
 
 # ignore dirs
 libraries/
+/datazets/data/
 /datazets/data/*.png
 /datazets/data/*.zip
 /datazets/data/*
