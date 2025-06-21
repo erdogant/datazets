@@ -20,7 +20,6 @@ import logging
 logger = logging.getLogger(__name__)
 if not logger.hasHandlers():
     logging.basicConfig(level=logging.INFO, format='[{asctime}] [{name}] [{levelname}] {msg}', style='{', datefmt='%d-%m-%Y %H:%M:%S')
-# logger = logging.getLogger(__name__); logger.addHandler(logging.NullHandler())
 
 # %% Import example dataset.
 def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}, **args):
