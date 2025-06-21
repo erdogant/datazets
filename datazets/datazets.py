@@ -18,6 +18,8 @@ from urllib.parse import urlparse
 import logging
 
 logger = logging.getLogger(__name__)
+if not logger.hasHandlers():
+    logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(message)s')
 
 
 # %% Import example dataset.
@@ -128,7 +130,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'
     * energy: https://www.gov.uk/guidance/2050-pathways-analysis
 
     """
-    set_logger(verbose=verbose)
+    if verbose is not None: set_logger(verbose=verbose)
     if data is None and url is None:
         logger.error('Input parameter <data> or <url> should be used.')
         return None
@@ -497,7 +499,27 @@ def unzip(path_to_zip, targetdir=None, return_full_paths=False):
 
 
 # %%
-def set_logger(verbose: [str, int] = 'info'):
+def convert_verbose_to_new(verbose):
+    """Convert old verbosity to the new."""
+    # In case the new verbosity is used, convert to the old one.
+    if verbose is None: verbose=0
+    if not isinstance(verbose, str) and verbose<10:
+        status_map = {
+            1: 'critical',
+            2: 'warning',
+            3: 'info',
+            4: 'debug',
+            5: 'debug',
+            6: 'silent',
+            0: 'silent',
+            'None': 'silent',
+            }
+        if verbose>=2: print('[pca] WARNING use the standardized verbose status. The status [1-6] will be deprecated in future versions.')
+        return status_map.get(verbose, 0)
+    else:
+        return verbose
+
+def set_logger(verbose: [str, int] = 'info', return_status: bool = False):
     """Set the logger for verbosity messages.
 
     Parameters
@@ -508,7 +530,7 @@ def set_logger(verbose: [str, int] = 'info'):
         * [10, 'debug']: Messages from debug level and higher.
         * [20, 'info']: Messages from info level and higher.
         * [30, 'warning']: Messages from warning level and higher.
-        * [50, 'critical']: Messages from critical level and higher.
+        * [50, 'critical', 'error']: Messages from critical level and higher.
 
     Returns
     -------
@@ -523,22 +545,35 @@ def set_logger(verbose: [str, int] = 'info'):
     > logger.critical("Hello critical")
 
     """
+    # Convert verbose to new
+    verbose = convert_verbose_to_new(verbose)
     # Set 0 and None as no messages.
     if (verbose==0) or (verbose is None):
         verbose=60
     # Convert str to levels
     if isinstance(verbose, str):
-        levels = {'silent': 60,
-                  'off': 60,
-                  'no': 60,
-                  'debug': 10,
-                  'info': 20,
-                  'warning': 30,
-                  'critical': 50}
+        levels = {
+            'silent': logging.CRITICAL + 10,
+            'off': logging.CRITICAL + 10,
+            'no': logging.CRITICAL + 10,
+            'debug': logging.DEBUG,
+            'info': logging.INFO,
+            'warning': logging.WARNING,
+            'error': logging.ERROR,
+            'critical': logging.CRITICAL,
+        }
         verbose = levels[verbose]
 
     # Show examples
     logger.setLevel(verbose)
+
+    if return_status:
+        return verbose
+
+
+def disable_tqdm():
+    """Set the logger for verbosity messages."""
+    return (True if (logger.getEffectiveLevel()>=30) else False)
 
 
 # %% Extract basename from path
@@ -548,11 +583,6 @@ def basename(label):
 
 
 # %%
-def disable_tqdm():
-    """Set the logger for verbosity messages."""
-    return (True if (logger.getEffectiveLevel()>=30) else False)
-
-
 def download_from_url(filename, url, **args):
     """Url import function.
 
