@@ -16,12 +16,13 @@ __version__ = '1.1.3'
 # Setup root logger
 _logger = logging.getLogger('datazets')
 _log_handler = logging.StreamHandler()
-_fmt = '[{asctime}] [{name}] [{levelname}] {msg}'
-_formatter = logging.Formatter(fmt=_fmt, style='{', datefmt='%d-%m-%Y %H:%M:%S')
+_formatter = logging.Formatter(fmt='[{asctime}] [{name:<12.12}] [{levelname:<8}] {message}', style='{', datefmt='%d-%m-%Y %H:%M:%S')
 _log_handler.setFormatter(_formatter)
 _log_handler.setLevel(logging.DEBUG)
-_logger.addHandler(_log_handler)
-_logger.propagate = False
+if not _logger.hasHandlers():  # avoid duplicate handlers if re-imported
+    _logger.addHandler(_log_handler)
+_logger.setLevel(logging.DEBUG)
+_logger.propagate = True  # allow submodules to inherit this handler
 
 # module level doc-string
 __doc__ = """

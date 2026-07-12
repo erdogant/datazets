@@ -57,6 +57,7 @@ datasets = ['census_income',
             'tips',
             'predictive_maintenance',
             'bigbang',
+            'socialmedia',
             'surfspots',
             'blobs',
             'moons',
@@ -91,6 +92,7 @@ for data in datasets:
 # | iris                   | (150, 3)             | Continuous          | Classic flower classification dataset with iris species measurements with coordinates         |
 # | ads                    | (10000, 10)          | Discrete            | Data on online ads, covering click-through rates and targeting information                    |
 # | bigbang                | (9, 3)               | Network             | Data on *The Big Bang Theory* episodes and characters                                         |
+# | socialmedia            | (90149, 3)           | Network             | Social media                                                                                  |
 # | malicious_urls         | (387588, 2)          | Text                | URLs labeled as malicious or benign, useful in cybersecurity                                  |
 # | malicious_phish        | (651191, 4)          | Text                | URLs labeled as malicious or benign, defacement, phishing, malware (cybersecurity)            |
 # | random_discrete        | (1000, 5)            | Discrete            | Synthetic dataset with random discrete variables, useful for probability modeling             |

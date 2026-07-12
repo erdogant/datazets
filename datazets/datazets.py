@@ -18,8 +18,6 @@ from urllib.parse import urlparse
 import logging
 
 logger = logging.getLogger(__name__)
-if not logger.hasHandlers():
-    logging.basicConfig(level=logging.INFO, format='[{asctime}] [{name}] [{levelname}] {msg}', style='{', datefmt='%d-%m-%Y %H:%M:%S')
 
 # %% Import example dataset.
 def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}, **args):
@@ -45,6 +43,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'
             * 'stormofswords'
             * 'gameofthrones'
             * 'bigbang'
+            * 'socialmedia'
         time-series
             * 'occupancy'
             * 'ps_data'
@@ -140,14 +139,14 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'
 
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
-    logger.info('Import dataset [%s]' %(dataproperties['input']))
+    logger.info(f"Import dataset {dataproperties['input']}")
 
     if dataproperties['url'] is None:
         logger.info('Nothing to download.')
         return None
 
     if overwrite and os.path.isfile(os.path.join(dataproperties['curpath'], dataproperties['filename'])):
-        logger.info('Removing [%s] from disk.' %(dataproperties['input']))
+        logger.info(f"Removing {dataproperties['input']} from disk.")
         os.remove(os.path.join(dataproperties['curpath'], dataproperties['filename']))
 
     # Import dataset
@@ -337,6 +336,7 @@ def get_dataproperties(data, sep=None, url=None):
             if data=='gas_prices': data, sep = 'Henry_Hub_Natural_Gas_Spot_Price.zip', ','
             if data=='grocery_products': data, sep = 'grocery_products_purchase.zip', ','
             if data=='bigbang': data, sep = 'bigbang.zip', ','
+            if data=='socialmedia': data, sep = 'socialmedia.zip', ','
             # images
             if data=='faces': data, sep = 'olivetti_faces.zip', ';'
             if data=='mnist': data, sep = 'mnist_images.zip', ';'
@@ -384,7 +384,7 @@ def listdir(dirpath, ext=['png', 'tiff', 'jpg'], black_list=None):
     """
     if isinstance(ext, str): ext = [ext]
     if not isinstance('dirpath', str): raise Exception(print('Error: "dirpath" should be of type string.'))
-    if not os.path.isdir(dirpath): raise Exception(print('Error: The directory can not be found: %s.' %dirpath))
+    if not os.path.isdir(dirpath): raise Exception(print(f'Error: The directory can not be found: {dirpath}.'))
 
     getfiles = []
     for root, _, filenames in os.walk(dirpath):
@@ -396,7 +396,7 @@ def listdir(dirpath, ext=['png', 'tiff', 'jpg'], black_list=None):
                     getfiles.append(os.path.join(root, filename))
         else:
             logger.info('Excluded: <%s>' %(root))
-    logger.info('[%s] files are collected recursively from path: [%s]', len(getfiles), dirpath)
+    logger.info(f'[{len(getfiles)}] files are collected recursively from path: [{dirpath}]')
     return getfiles
 
 
@@ -488,7 +488,7 @@ def unzip(path_to_zip, targetdir=None, return_full_paths=False):
                 getpath = None
                 raise Exception('Extraction failed')
     else:
-        logger.warning('Input is not a zip file: [%s]', path_to_zip)
+        logger.warning(f"Input is not a zip file: {path_to_zip}")
 
     # Return
     if return_full_paths:
@@ -602,7 +602,7 @@ def download_from_url(filename, url, **args):
     PATH_TO_DATA = _makedir(filename, url)
     # Check file exists.
     if not os.path.isfile(PATH_TO_DATA):
-        logger.info('Downloading [%s] dataset from github source..' %(filename))
+        logger.info(f'Downloading [{filename}] dataset from github source..')
         wget.download(url, PATH_TO_DATA)
     return PATH_TO_DATA
 
@@ -664,12 +664,12 @@ def url2disk(urls, save_dir):
     filepath = urls.copy()
     idx_url = np.where(list(map(lambda x: x[0:4]=='http', filepath)))[0]
     if len(idx_url)>0:
-        logger.info('[%.0d] urls are detected and stored on disk: [%s]' %(len(idx_url), save_dir))
+        logger.info(f'[{len(idx_url)}] urls are detected and stored on disk: [{save_dir}]')
     else:
         urls = None
 
     if not os.path.isdir(save_dir):
-        logger.info('Create dir: [%s]' %(save_dir))
+        logger.info('Create dir: [{save_dir}]')
         os.mkdir(save_dir)
 
     for idx in idx_url:
@@ -683,15 +683,15 @@ def url2disk(urls, save_dir):
             url_filename = os.path.basename(url.path)
             path_to_file = os.path.join(save_dir, url_filename)
             if os.path.isfile(path_to_file):
-                logger.info('File already exists and is overwritten: [%s]' %(url.path))
+                logger.info(f'File already exists and is overwritten: [{url.path}]')
             else:
-                logger.info('Downloading [%s]' %(urls[idx]))
+                logger.info(f"Downloading {urls[idx]}")
             # save a image using extension
             img.save(path_to_file)
             # Store new location
             filepath[idx] = path_to_file
         except:
-            logger.warning('error downloading file from [%s]' %(urls[idx]))
+            logger.warning(f'error downloading file from [{urls[idx]}]')
 
     # Make dictionary output
     out = {'url': urls, 'pathnames': filepath}
