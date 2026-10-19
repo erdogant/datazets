@@ -112,15 +112,6 @@ df = dz.get(url=url, sep=',')
 
 ```
 
-### Contributors
-Thank the contributors!
-
-<p align="left">
-  <a href="https://github.com/erdogant/clustaudio/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=erdogant/clustaudio" />
-  </a>
-</p>
-
 ### Maintainer
 * Erdogan Taskesen, GitHub: [erdogant](https://github.com/erdogant)
 * Contributions are welcome.
