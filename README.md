@@ -112,12 +112,19 @@ df = dz.get(url=url, sep=',')
 
 ```
 
+### Contributors
+Thank the contributors!
+
+<p align="left">
+  <a href="https://github.com/erdogant/clustaudio/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=erdogant/clustaudio" />
+  </a>
+</p>
+
 ### Maintainer
-* Erdogan Taskesen, github: [erdogant](https://github.com/erdogant)
+* Erdogan Taskesen, GitHub: [erdogant](https://github.com/erdogant)
+* Contributions are welcome.
+* Yes! This library is entirely **free**, but it runs on coffee! :) Feel free to support with a <a href="https://erdogant.github.io/donate/?currency=USD&amount=5">Coffee</a>.
 
-### Contribute
-* All kinds of contributions are welcome!
-* If you wish to buy me a <a href="https://www.buymeacoffee.com/erdogant">Coffee</a> for this work, it is very appreciated :)
+[![Buy me a coffee](https://img.buymeacoffee.com/button-api/?text=Buy+me+a+coffee&emoji=&slug=erdogant&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://www.buymeacoffee.com/erdogant)
 
-### Licence
-See [LICENSE](LICENSE) for details.
