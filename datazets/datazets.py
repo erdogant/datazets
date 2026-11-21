@@ -20,7 +20,14 @@ import logging
 logger = logging.getLogger(__name__)
 
 # %% Import example dataset.
-def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}, **args):
+def get(data=None,
+        url=None,
+        sep=',',
+        overwrite=False,
+        params=None,
+        verbose='info',
+        **args,
+        ):
     """Import example dataset from github source.
 
     Import one of the few datasets from github source or specify your own download url link.
@@ -57,6 +64,7 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'
             * 'globular'
             * 'uniform'
             * 'densities'
+            * 'garden'
         Discrete data sets:
             * 'sprinkler'
             * 'census_income'
@@ -129,13 +137,21 @@ def get(data=None, url=None, sep=',', verbose='info', overwrite=False, params={'
 
     """
     if verbose is not None: set_logger(verbose=verbose)
+    default_params = {'n_samples': 1000, 'n_feat': 2, 'noise': 0.05, 'random_state': 170}
+    params = {} if params is None else params
+    params = {**default_params, **params}
+    
     if data is None and url is None:
         logger.error('Input parameter <data> or <url> should be used.')
         return None
 
-    if np.any(np.isin(data, ['blobs', 'moons', 'circles', 'anisotropic', 'globular', 'uniform', 'densities'])):
+    synthetic_datasets = {'blobs', 'moons', 'circles', 'anisotropic', 'globular', 'uniform', 'densities'}
+    if isinstance(data, str) and data in synthetic_datasets:
         # Generate datapoints
         return generate_datapoints(data, params)
+    elif data=='garden':
+        n_samples = args.get('n', params['n_samples'])
+        return make_garden(noise='gaussian', n=n_samples, seed=params['random_state'])
 
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
@@ -193,6 +209,20 @@ def _generate_data(urlname, **args):
         n = args.get('n', None) if args.get('n', None) is not None else 1000
         df = pd.DataFrame(np.random.randint(low=0, high=2, size=(n, 5)), columns=['A', 'B', 'C', 'D', 'E'])
     return df
+
+def make_garden(noise='gaussian', n=1000, seed=0):
+    rng = np.random.default_rng(seed)
+    def e(sd):                                   # noise with standard deviation sd
+        if noise == 'gaussian':
+            return rng.normal(0, sd, n)
+        a = sd * np.sqrt(3)                      # uniform noise with the same sd
+        return rng.uniform(-a, a, n)
+    cloud = e(1.0)
+    sun   = -0.8 * cloud + e(0.6)
+    rain  =  0.7 * cloud + e(0.7)
+    temp  =  0.9 * sun   + e(0.5)
+    soil  =  0.6 * temp  + 0.8 * rain + e(0.5)
+    return pd.DataFrame(dict(Cloud=cloud, Sun=sun, Rain=rain, Temp=temp, Soil=soil))
 
 
 # %%
@@ -348,6 +378,7 @@ def get_dataproperties(data, sep=None, url=None):
     curpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     # Set the url
     dataproperties = {'input': inputname, 'filename': data, 'sep': sep, 'type': datatype, 'url': url, 'curpath': curpath}
+    
     # Get filename from url
     if url is not None:
         dataproperties['filename'] = wget.filename_from_url(url, ext=False)

@@ -9,9 +9,18 @@ class Testdatazets(unittest.TestCase):
         df = dz.get(data='random_discrete', n=10)
         assert df.shape==(10, 5)
 
+    def test_garden(self):
+        df = dz.get(data='garden', params={'n_samples': 250, 'random_state': 42}, verbose=0)
+        assert df.shape==(250, 5)
+        assert list(df.columns)==['Cloud', 'Sun', 'Rain', 'Temp', 'Soil']
+
+        # Backward-compatible shortcut through kwargs
+        df = dz.get(data='garden', n=10, verbose=0)
+        assert df.shape==(10, 5)
+
     def test_image_datasets(self):
         img = dz.get(data='flowers', verbose=0)
-        assert len(img)==214
+        assert len(img)==459
         img = dz.get(data='faces', verbose=0)
         assert img.shape==(400, 4097)
         img = dz.get(data='mnist', verbose=0)

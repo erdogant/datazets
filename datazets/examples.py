@@ -8,6 +8,12 @@ dz.check_logger(verbose=0)
 
 # %%
 import datazets as dz
+X = dz.get(data='garden')
+
+print(X.corr().round(2))
+
+# %%
+import datazets as dz
 X = dz.get(data='img_peaks1', overwrite=True, verbose='info')
 
 # %%
@@ -34,6 +40,7 @@ IMAGES = ['faces', 'mnist', 'southern_nebula', 'flowers', 'scenes', 'cat_and_dog
 datasets = ['census_income',
             'stormofswords',
             'sprinkler',
+            'garden',
             'titanic',
             'student',
             'fifa',
