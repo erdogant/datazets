@@ -8,7 +8,7 @@ dz.check_logger(verbose=0)
 
 # %%
 import datazets as dz
-X = dz.get(data='garden')
+X = dz.get(data='garden', n=100)
 
 print(X.corr().round(2))
 
