@@ -64,7 +64,6 @@ def get(data=None,
             * 'globular'
             * 'uniform'
             * 'densities'
-            * 'garden'
         Discrete data sets:
             * 'sprinkler'
             * 'census_income'
@@ -73,6 +72,7 @@ def get(data=None,
             * 'breast_cancer'
             * 'cancer'
             * 'auto_mpg'
+            * 'garden' (linear-Gaussian, five variables, with the same ground truth as bnlearn.fetch('garden'); use noise='gaussian' or noise='uniform' and seed=<int>)
             * 'iris'
         Images:
             * 'faces'
@@ -151,7 +151,7 @@ def get(data=None,
         return generate_datapoints(data, params)
     elif data=='garden':
         n_samples = args.get('n', params['n_samples'])
-        return make_garden(noise='gaussian', n=n_samples, seed=params['random_state'])
+        return make_garden(noise=args.get('noise', 'gaussian'), n=n_samples, seed=args.get('seed', params['random_state']))
 
     # Get and Set data information
     dataproperties = get_dataproperties(data, sep, url)
@@ -211,17 +211,41 @@ def _generate_data(urlname, **args):
     return df
 
 def make_garden(noise='gaussian', n=1000, seed=0):
+    """Generate the garden dataset: a linear model with five variables.
+
+    The ground truth is the same as in bnlearn (bn.fetch('garden')), and the two
+    must be kept in sync:
+        Cloud ~ noise
+        Sun   = -0.8 * Cloud + noise
+        Rain  =  0.7 * Cloud + noise
+        Temp  =  0.9 * Sun   + noise
+        Soil  =  0.6 * Temp  + 0.8 * Rain + noise
+    Every noise term has mean 0 and standard deviation 1.
+
+    Parameters
+    ----------
+    noise : str, default 'gaussian'
+        'gaussian' or 'uniform'. Uniform noise has the same standard deviation as the Gaussian noise.
+    n : int, default 1000
+        Number of samples.
+    seed : int, default 0
+        Random seed.
+    """
+    if noise not in ('gaussian', 'uniform'):
+        raise ValueError(f"noise [{noise}] is unknown. Use 'gaussian' or 'uniform'.")
     rng = np.random.default_rng(seed)
-    def e(sd):                                   # noise with standard deviation sd
+
+    def e(sd):  # noise with mean 0 and standard deviation sd
         if noise == 'gaussian':
             return rng.normal(0, sd, n)
-        a = sd * np.sqrt(3)                      # uniform noise with the same sd
+        a = sd * np.sqrt(3)  # a uniform(-a, a) has standard deviation a / sqrt(3)
         return rng.uniform(-a, a, n)
+
     cloud = e(1.0)
-    sun   = -0.8 * cloud + e(0.6)
-    rain  =  0.7 * cloud + e(0.7)
-    temp  =  0.9 * sun   + e(0.5)
-    soil  =  0.6 * temp  + 0.8 * rain + e(0.5)
+    sun = -0.8 * cloud + e(1.0)
+    rain = 0.7 * cloud + e(1.0)
+    temp = 0.9 * sun + e(1.0)
+    soil = 0.6 * temp + 0.8 * rain + e(1.0)
     return pd.DataFrame(dict(Cloud=cloud, Sun=sun, Rain=rain, Temp=temp, Soil=soil))
 
 
